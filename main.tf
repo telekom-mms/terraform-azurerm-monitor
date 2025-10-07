@@ -15,58 +15,74 @@ resource "azurerm_monitor_diagnostic_setting" "monitor_diagnostic_setting" {
   log_analytics_destination_type = local.monitor_diagnostic_setting[each.key].log_analytics_destination_type
   storage_account_id             = local.monitor_diagnostic_setting[each.key].storage_account_id
 
-  dynamic "log" {
-    for_each = local.monitor_diagnostic_setting[each.key].log.category
+  # dynamic "log" {
+  #   for_each = local.monitor_diagnostic_setting[each.key].log.category
+
+  #   content {
+  #     category = local.monitor_diagnostic_setting[each.key].log.category[log.key]
+  #     enabled  = local.monitor_diagnostic_setting[each.key].log.enabled
+
+  #     retention_policy {
+  #       days    = local.monitor_diagnostic_setting[each.key].log.retention_policy.days
+  #       enabled = local.monitor_diagnostic_setting[each.key].log.retention_policy.enabled
+  #     }
+  #   }
+  # }
+  # dynamic "metric" {
+  #   for_each = local.monitor_diagnostic_setting[each.key].metric.category
+
+  #   content {
+  #     category = local.monitor_diagnostic_setting[each.key].metric.category[metric.key]
+  #     enabled  = local.monitor_diagnostic_setting[each.key].metric.enabled
+
+  #     retention_policy {
+  #       days    = local.monitor_diagnostic_setting[each.key].metric.retention_policy.days
+  #       enabled = local.monitor_diagnostic_setting[each.key].metric.retention_policy.enabled
+  #     }
+  #   }
+  # }  
+
+  dynamic "enabled_log" {
+    for_each = local.monitor_diagnostic_setting[each.key].enabled_log.category
 
     content {
-      category = local.monitor_diagnostic_setting[each.key].log.category[log.key]
-      enabled  = local.monitor_diagnostic_setting[each.key].log.enabled
-
-      retention_policy {
-        days    = local.monitor_diagnostic_setting[each.key].log.retention_policy.days
-        enabled = local.monitor_diagnostic_setting[each.key].log.retention_policy.enabled
-      }
+      category = local.monitor_diagnostic_setting[each.key].enabled_log.category[enabled_log.key]
     }
   }
-  dynamic "metric" {
-    for_each = local.monitor_diagnostic_setting[each.key].metric.category
+
+  dynamic "enabled_metric" {
+    for_each = local.monitor_diagnostic_setting[each.key].enabled_metric.category
 
     content {
-      category = local.monitor_diagnostic_setting[each.key].metric.category[metric.key]
-      enabled  = local.monitor_diagnostic_setting[each.key].metric.enabled
-
-      retention_policy {
-        days    = local.monitor_diagnostic_setting[each.key].metric.retention_policy.days
-        enabled = local.monitor_diagnostic_setting[each.key].metric.retention_policy.enabled
-      }
+      category = local.monitor_diagnostic_setting[each.key].enabled_metric.category[enabled_metric.key]
     }
   }
 
   /** disable all other available categories */
-  dynamic "log" {
-    for_each = setsubtract(data.azurerm_monitor_diagnostic_categories.monitor_diagnostic_categories[each.key].logs, local.monitor_diagnostic_setting[each.key].log.category)
+  # dynamic "log" {
+  #   for_each = setsubtract(data.azurerm_monitor_diagnostic_categories.monitor_diagnostic_categories[each.key].logs, local.monitor_diagnostic_setting[each.key].log.category)
 
-    content {
-      category = log.key
-      enabled  = false
-      retention_policy {
-        days    = 0
-        enabled = false
-      }
-    }
-  }
-  dynamic "metric" {
-    for_each = setsubtract(data.azurerm_monitor_diagnostic_categories.monitor_diagnostic_categories[each.key].metrics, local.monitor_diagnostic_setting[each.key].metric.category)
+  #   content {
+  #     category = log.key
+  #     enabled  = false
+  #     retention_policy {
+  #       days    = 0
+  #       enabled = false
+  #     }
+  #   }
+  # }
+  # dynamic "metric" {
+  #   for_each = setsubtract(data.azurerm_monitor_diagnostic_categories.monitor_diagnostic_categories[each.key].metrics, local.monitor_diagnostic_setting[each.key].metric.category)
 
-    content {
-      category = metric.key
-      enabled  = false
-      retention_policy {
-        days    = 0
-        enabled = false
-      }
-    }
-  }
+  #   content {
+  #     category = metric.key
+  #     enabled  = false
+  #     retention_policy {
+  #       days    = 0
+  #       enabled = false
+  #     }
+  #   }
+  # }
 }
 
 resource "azurerm_monitor_action_group" "monitor_action_group" {
@@ -113,6 +129,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_alert" {
 
   name                = local.monitor_activity_log_alert[each.key].name == "" ? each.key : local.monitor_activity_log_alert[each.key].name
   resource_group_name = local.monitor_activity_log_alert[each.key].resource_group_name
+  location            = local.monitor_activity_log_alert[each.key].location
   scopes              = local.monitor_activity_log_alert[each.key].scopes
   enabled             = local.monitor_activity_log_alert[each.key].enabled
   description         = local.monitor_activity_log_alert[each.key].description

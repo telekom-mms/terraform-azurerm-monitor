@@ -32,22 +32,28 @@ locals {
       log_analytics_workspace_id     = null
       log_analytics_destination_type = null
       storage_account_id             = null
-      log = {
+      # log = {
+      #   category = []
+      #   enabled  = false
+      #   retention_policy = {
+      #     days    = 0
+      #     enabled = false
+      #   }
+      # }     
+      # metric = {
+      #   category = []
+      #   enabled  = false
+      #   retention_policy = {
+      #     days    = 0
+      #     enabled = false
+      #   }
+      # }
+      enabled_log = {
         category = []
-        enabled  = false
-        retention_policy = {
-          days    = 0
-          enabled = false
-        }
-      }
-      metric = {
+      } 
+      enabled_metric = {
         category = []
-        enabled  = false
-        retention_policy = {
-          days    = 0
-          enabled = false
-        }
-      }
+      }             
     }
     monitor_action_group = {
       name       = ""
@@ -71,6 +77,7 @@ locals {
     }
     monitor_activity_log_alert = {
       name        = ""
+      location    = null
       enabled     = true
       description = null
       criteria = {
