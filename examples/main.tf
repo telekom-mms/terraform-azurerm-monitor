@@ -4,33 +4,18 @@ module "monitor" {
     virtual_network.name = {
       target_resource_id         = virtual_network.id
       log_analytics_workspace_id = data.azurerm_log_analytics_workspace.log_analytics_workspace.id
-      metric = {
+      enabled_metric = {
         category = ["AllMetrics"]
-        enabled  = true
-        retention_policy = {
-          days    = 30
-          enabled = true
-        }
       }
     }
     frontdoor.name = {
       target_resource_id         = frontdoor.id
       log_analytics_workspace_id = data.azurerm_log_analytics_workspace.log_analytics_workspace.id
-      log = {
+      enabled_log = {
         category = ["FrontdoorWebApplicationFirewallLog"]
-        enabled  = true
-        retention_policy = {
-          days    = 30
-          enabled = true
-        }
       }
-      metric = {
+      enabled_metric = {
         category = ["AllMetrics"]
-        enabled  = true
-        retention_policy = {
-          days    = 30
-          enabled = true
-        }
       }
     }
   }

@@ -32,22 +32,6 @@ locals {
       log_analytics_workspace_id     = null
       log_analytics_destination_type = null
       storage_account_id             = null
-      # log = {
-      #   category = []
-      #   enabled  = false
-      #   retention_policy = {
-      #     days    = 0
-      #     enabled = false
-      #   }
-      # }     
-      # metric = {
-      #   category = []
-      #   enabled  = false
-      #   retention_policy = {
-      #     days    = 0
-      #     enabled = false
-      #   }
-      # }
       enabled_log = {
         category = []
       } 
