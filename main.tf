@@ -1,8 +1,10 @@
 /**
- * # monitor
- *
- * This module manages Azure Monitor and Diagnostic.
- *
+* # monitor
+*
+* This module manages the azurerm monitor resources, see https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs.
+*
+* For more information about the module structure see https://telekom-mms.github.io/terraform-template.
+*
 */
 resource "azurerm_monitor_diagnostic_setting" "monitor_diagnostic_setting" {
   for_each = var.monitor_diagnostic_setting

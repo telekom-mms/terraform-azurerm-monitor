@@ -1,0 +1,21 @@
+---
+name: terratest
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  TEMPLATE_REPOSITORY: telekom-mms/terraform-template
+
+jobs:
+  call-terratest:
+    if: github.repository != '$TEMPLATE_REPOSITORY'
+    uses: telekom-mms/.github/.github/workflows/terratest.yml@main
+    with:
+      test: azure
+    secrets:
+      azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
+      azure_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+      azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
