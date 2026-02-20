@@ -5,8 +5,12 @@
     "default_branch": "main",
     "homepage": "https://telekom-mms.github.io/terraform-template",
     "topics": [
-      "terraform",
-      "azure"
+      "azure",
+      "monitor-action-group",
+      "monitor-activity-log-alert",
+      "monitor-diagnostic-setting",
+      "monitor-scheduled-query-rules-alert",
+      "terraform"
     ]
   }
 }
