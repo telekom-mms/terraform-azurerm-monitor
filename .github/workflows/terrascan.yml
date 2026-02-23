@@ -15,5 +15,5 @@ jobs:
     with:
       iac_type: terraform
       iac_dir: ./tests
-      policy_type: all
+      policy_type: azure
       non_recursive: true
