@@ -48,7 +48,7 @@ module "monitor" {
 
   monitor_diagnostic_setting = {
     diag-mms-github = {
-      target_resource_id = module.key_vault.key_vault["kv-mms-github"].id
+      target_resource_id         = module.key_vault.key_vault["kv-mms-github"].id
       log_analytics_workspace_id = module.log_analytics_workspace.log_analytics_workspace["law-mms-github"].id
       log = {
         category = ["AuditEvent"]
@@ -109,15 +109,15 @@ module "monitor" {
         operator  = "GreaterThan"
         threshold = 80
         metric_trigger = {
-            metric_column       = "Computer"
-            metric_trigger_type = "Consecutive"
-            operator            = "GreaterThan"
-            threshold           = 1
+          metric_column       = "Computer"
+          metric_trigger_type = "Consecutive"
+          operator            = "GreaterThan"
+          threshold           = 1
         }
       }
       action = {
-        action_group = []
-        email_subject = "High CPU Alert"
+        action_group           = []
+        email_subject          = "High CPU Alert"
         custom_webhook_payload = "{ \"alert\": \"#alertrulename\", \"metric\": \"#metricvalue\" }"
       }
       tags = {
