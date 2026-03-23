@@ -32,21 +32,13 @@ locals {
       log_analytics_workspace_id     = null
       log_analytics_destination_type = null
       storage_account_id             = null
-      log = {
-        category = []
-        enabled  = false // defined default
-        retention_policy = {
-          days    = 0
-          enabled = false // defined default
-        }
+      partner_solution_id            = null
+      enabled_log = {
+        category       = []
+        category_group = []
       }
-      metric = {
+      enabled_metric = {
         category = []
-        enabled  = false // defined default
-        retention_policy = {
-          days    = 0
-          enabled = false // defined default
-        }
       }
     }
     monitor_action_group = {

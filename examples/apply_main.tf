@@ -41,6 +41,7 @@ module "monitor" {
   monitor_activity_log_alert = {
     ala-mms-github = {
       resource_group_name = "rg-mms-github"
+      location            = "westeurope"
       scopes              = [data.azurerm_subscription.current.id]
       criteria = {
         category = "Recommendation"
