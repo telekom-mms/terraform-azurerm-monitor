@@ -50,21 +50,11 @@ module "monitor" {
     diag-mms-github = {
       target_resource_id         = module.key_vault.key_vault["kv-mms-github"].id
       log_analytics_workspace_id = module.log_analytics_workspace.log_analytics_workspace["law-mms-github"].id
-      log = {
-        category = ["AuditEvent"]
-        enabled  = true
-        retention_policy = {
-          days    = 7
-          enabled = true
-        }
+      enabled_log = {
+        category = "AuditEvent"
       }
-      metric = {
-        category = ["AllMetrics"]
-        enabled  = true
-        retention_policy = {
-          days    = 7
-          enabled = true
-        }
+      enabled_metric = {
+        category = "AllMetrics"
       }
     }
   }
@@ -72,6 +62,7 @@ module "monitor" {
   monitor_activity_log_alert = {
     ala-mms-github = {
       resource_group_name = "rg-mms-github"
+      location            = "westeurope"
       scopes              = [data.azurerm_subscription.current.id]
       description         = "Alert for Service Health Recommendations"
       enabled             = true
