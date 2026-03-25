@@ -1,24 +1,24 @@
 variable "monitor_diagnostic_setting" {
   type        = any
   default     = {}
-  description = "resource definition, default settings are defined within locals and merged with var settings"
+  description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
 }
 variable "monitor_action_group" {
   type        = any
   default     = {}
-  description = "resource definition, default settings are defined within locals and merged with var settings"
+  description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
 }
 
 variable "monitor_activity_log_alert" {
   type        = any
   default     = {}
-  description = "resource definition, default settings are defined within locals and merged with var settings"
+  description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
 }
 
 variable "monitor_scheduled_query_rules_alert" {
   type        = any
   default     = {}
-  description = "resource definition, default settings are defined within locals and merged with var settings"
+  description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
 }
 
 
@@ -32,27 +32,19 @@ locals {
       log_analytics_workspace_id     = null
       log_analytics_destination_type = null
       storage_account_id             = null
-      log = {
-        category = []
-        enabled  = false
-        retention_policy = {
-          days    = 0
-          enabled = false
-        }
+      partner_solution_id            = null
+      enabled_log = {
+        category       = []
+        category_group = []
       }
-      metric = {
+      enabled_metric = {
         category = []
-        enabled  = false
-        retention_policy = {
-          days    = 0
-          enabled = false
-        }
       }
     }
     monitor_action_group = {
       name       = ""
       short_name = ""
-      enabled    = true
+      enabled    = null
       arm_role_receiver = {
         # name                          = ""
         # role_id = ""
@@ -60,7 +52,7 @@ locals {
       }
       email_receiver = {
         name                    = ""
-        use_common_alert_schema = true
+        use_common_alert_schema = null
       }
       event_hub_receiver = {
         # name = ""
@@ -71,7 +63,7 @@ locals {
     }
     monitor_activity_log_alert = {
       name        = ""
-      enabled     = true
+      enabled     = null
       description = null
       criteria = {
         operation_name          = null
@@ -101,7 +93,7 @@ locals {
       authorized_resource_ids = null
       auto_mitigation_enabled = null
       description             = null
-      enabled                 = true
+      enabled                 = null
       severity                = null
       throttling              = null
       action = {

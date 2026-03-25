@@ -1,8 +1,10 @@
 {
   "extends": [
     "config:base",
-    ":dependencyDashboard"
+    "github>telekom-mms/terraform-template"
   ],
+  "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": false,
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],
@@ -10,3 +12,4 @@
     }
   ]
 }
+
