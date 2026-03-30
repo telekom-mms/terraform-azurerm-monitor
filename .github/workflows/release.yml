@@ -19,3 +19,7 @@ jobs:
       GH_BRANCH_PROTECTION_APP_TOKEN: ${{ secrets.GH_BRANCH_PROTECTION_APP_TOKEN }}
     with:
       files: README.md
+  call-publish:
+    if: github.repository != '$TEMPLATE_REPOSITORY'
+    needs: call-release
+    uses: telekom-mms/.github/.github/workflows/terraform_registry_publish.yml@main
